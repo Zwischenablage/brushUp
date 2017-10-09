@@ -1,6 +1,6 @@
 all:
-	g++ -o bracket_counter main.cpp
+	g++ -o BSTNodeCounter main.cpp
 
 
 clean:
-	rm -rf *.o bracket_counter
+	rm -rf *.o BSTNodeCounter
