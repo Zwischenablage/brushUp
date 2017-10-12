@@ -6,6 +6,7 @@ using namespace std;
 int getFactorial(int n)
 {
 	if ( n == 1 ) return n;
+	if ( n == 0 ) return 1;
 	else return n * (getFactorial (n-1));
 }
 
@@ -50,8 +51,17 @@ int main(int argc, char* argv[])
 	n = 5;
 	k = 3;
 	cout << "" << n << " choose " << k << " = " << getCombinations(n, k) << " combinations "<< endl;
-	// chance to hit exactly 3 out of 8 3-pointers with a 3-point-rate of 80%
+	// chance to hit exactly 3 out of 5 3-pointers with a 3-point-rate of 80%
 	// hit = 0.8, miss = 0.2 --> hit,hit,hit,miss,miss = 0.8*0.8*0.8*0.2*0.2
 	probability = (float)getCombinations (n, k) * getPow(0.8f,3) * getPow(0.2f,2);
 	cout << "probability = " << probability * 100 << " percent" << endl << endl;
+	
+	
+	// chance to hit at least 3 out of 5 3-pointers with a 3-point rate of 80%
+	// this is the sum of: exact chance to hit 3/5 + exact chance to hit 4/5 + exact chance to hit 5/5
+
+	probability = (float)getCombinations (n, 3) * getPow(0.8f,3) * getPow(0.2f,2)
+				+ (float)getCombinations (n, 4) * getPow(0.8f,4) * getPow(0.2f,1)
+				+ (float)getCombinations (n, 5) * getPow(0.8f,5);
+	cout << "probability (to hit at least 3/5)= " << probability * 100 << " percent" << endl << endl;
 }
