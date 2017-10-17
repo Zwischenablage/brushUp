@@ -1,6 +1,9 @@
 #include "common.h"
 #include <iostream>
 #include <signal.h>
+#include <chrono>
+#include <thread>
+
 using namespace boost::interprocess;
 
 volatile sig_atomic_t stop;
@@ -14,20 +17,16 @@ int main(int argc, char *argv[]) {
         managed_shared_memory segment(open_only, "MySharedMemory");
 
         // Find the vector using the c-string name
-        MyShmStringVector *myvector = segment.find<MyShmStringVector>("myshmvector").first;
-
-        if (NULL != myvector) {
-
-            // Use vector in reverse order
-            std::sort(myvector->rbegin(), myvector->rend());
-
-            std::cout << "Received: " << (*myvector)[0] << std::endl;
+		std::pair<MyShmString*, std::size_t> p = segment.find<MyShmString>("String");
+        if (p.first) {
+            std::cout << "Received: " << (*p.first) << std::endl;
 
             // When done, destroy the vector from the segment
-            segment.destroy<MyShmStringVector>("myshmvector");
+            segment.destroy<MyShmString>("String");
         }
 
-        sleep(1);
+	    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+		
     }
 
     return 0;

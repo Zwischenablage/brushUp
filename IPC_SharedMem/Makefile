@@ -1,4 +1,5 @@
 INCLUDES=-I/usr/local/Cellar/boost/1.65.1/include
+#LIB=-L/usr/local/Cellar/boost//1.65.1/lib/ -lboost_thread-mt
 
 run: producer consumer
 	echo "built targets producer & consumer"
