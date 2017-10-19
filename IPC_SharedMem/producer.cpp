@@ -21,10 +21,10 @@ int main (int argc, char *argv[])
     std::string message = argv[1]; 
     std::cout << "Sending string " << message << std::endl;
 
-    shared_memory_object::remove("MySharedMemory");
+    //shared_memory_object::remove("MySharedMemory");
     managed_shared_memory shm(open_or_create , "MySharedMemory", 10000);
 		
-	MyShmString *s = shm.find_or_construct<MyShmString>("String")(message.c_str(), shm.get_segment_manager());
+	MyShmString *s = shm.find_or_construct<MyShmString>("SharedMemString")(message.c_str(), shm.get_segment_manager());
 
     return 0;
 }
