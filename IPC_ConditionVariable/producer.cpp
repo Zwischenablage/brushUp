@@ -37,10 +37,8 @@ void fill2()
         boost::lock_guard<boost::mutex> lock(mutex);
     for (int i = 0; i < 3; ++i)
     {
-        //boost::unique_lock<boost::mutex> lock(mutex);
         random_numbers.push_back(std::rand());
         cond.notify_all();
-        //cond.wait(mutex);
     }
 
     println("end of fill()");
@@ -83,6 +81,11 @@ void print2()
 
 int main()
 {
+
+    /* print() and fill() are the examples taken from https://dieboostcppbibliotheken.de/boost.thread-synchronisation.
+     * This adds 3 random numbers to the vector random_numbers() and synchronizes the fill() vs. print() per cond var.
+     * In contrary to print2() / fill2() this synchronizes print/fill with every number added to the vector.
+     * While fill2() / print 2() add all 3 numbers first to the vector and signals the cond var once all values have been added. */
     std::cout << std::endl;
     std::cout << "<START>" << std::endl;
     boost::thread t2(print);
