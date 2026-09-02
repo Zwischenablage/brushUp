@@ -4,7 +4,6 @@
 
     <string name="status_title">Snap Gatekeeper</string>
     <string name="label_target_package">Blocked package</string>
-    <string name="label_device_owner">Device Owner (suspend on launch)</string>
     <string name="label_accessibility">Accessibility watchdog</string>
     <string name="label_usage_access">Usage access (poll fallback)</string>
     <string name="label_gateway_service">Gateway service</string>
@@ -20,6 +19,4 @@
     <string name="notification_channel_name">Snap Gatekeeper</string>
     <string name="notification_title">Snap Gatekeeper is active</string>
     <string name="notification_text">Blocking %1$s from starting</string>
-
-    <string name="device_owner_hint">Not device owner yet. From a computer with adb, on a device with no accounts added, run:\nadb shell dpm set-device-owner com.brushup.snapgatekeeper/.GatekeeperDeviceAdminReceiver</string>
 </resources>

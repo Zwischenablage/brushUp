@@ -61,22 +61,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        PackageBlocker.applySuspension(this)
         refreshStatus()
     }
 
     private fun refreshStatus() {
         val target = GatekeeperConfig.targetPackage(this)
         binding.targetPackageText.text = getString(R.string.label_target_package) + ": " + target
-
-        val isDeviceOwner = PackageBlocker.isDeviceOwner(this)
-        binding.deviceOwnerStatusText.text = statusLabel(isDeviceOwner)
-        binding.deviceOwnerStatusText.setTextColor(statusColor(isDeviceOwner))
-        binding.deviceOwnerHintText.text = if (isDeviceOwner) {
-            ""
-        } else {
-            getString(R.string.device_owner_hint)
-        }
 
         val a11yEnabled = isAccessibilityServiceEnabled()
         binding.accessibilityStatusText.text = statusLabel(a11yEnabled)

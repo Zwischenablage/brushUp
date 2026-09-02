@@ -6,15 +6,16 @@ import android.content.Intent
 import android.util.Log
 
 /**
- * Suspension is tied to the installed package, so an uninstall wipes it -
- * a freshly (re)installed Snapchat comes back unsuspended and could be
- * opened before the polling loop in [BlockerForegroundService] gets to it.
+ * Without Device Owner there's no "suspended" state to lose, but a fresh
+ * (re)install of the target app can auto-launch (e.g. a "set up now"
+ * first-run flow triggered by the Play Store) before the accessibility
+ * service or the polling loop notices it. Reacting to the install
+ * broadcast directly closes most of that gap.
  *
  * PACKAGE_ADDED / PACKAGE_REPLACED are among the broadcasts explicitly
  * exempted from Android 8+'s implicit-broadcast restrictions, so this
  * manifest-registered receiver fires even if the app has no running
- * process and nothing else is on screen - covering "install/reinstall the
- * blocked app while the gatekeeper app itself was never opened".
+ * process and nothing else is on screen.
  */
 class PackageInstallReceiver : BroadcastReceiver() {
 
@@ -25,8 +26,8 @@ class PackageInstallReceiver : BroadcastReceiver() {
                 val target = GatekeeperConfig.targetPackage(context)
                 if (installedPackage != target) return
 
-                Log.i(TAG, "$target was (re)installed; re-applying suspension")
-                PackageBlocker.applySuspension(context)
+                Log.i(TAG, "$target was (re)installed; killing any background process")
+                PackageBlocker.killBackgroundProcess(context, target)
 
                 // Make sure the redundant polling/watchdog path is running too,
                 // in case it was previously stopped for any reason.

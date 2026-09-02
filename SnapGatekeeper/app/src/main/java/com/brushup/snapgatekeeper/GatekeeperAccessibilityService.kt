@@ -5,12 +5,11 @@ import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 
 /**
- * Fallback / redundancy layer for [PackageBlocker]. Even with Device Owner
- * suspension in place, this watches every window-state change and, if the
- * blocked package's window ever appears (e.g. suspension was cleared, or
- * this runs without Device Owner at all), immediately performs the "go
- * home" global action so the blocked app never stays on screen, and kicks
- * off a background kill + suspension re-assert for good measure.
+ * Primary blocking mechanism (no Device Owner needed). Watches every
+ * window-state change and, if the blocked package's window ever appears,
+ * immediately performs the "go home" global action - so the blocked app
+ * gets bumped out of the foreground before the user can interact with it -
+ * then kills its now-backgrounded process.
  */
 class GatekeeperAccessibilityService : AccessibilityService() {
 
@@ -22,7 +21,6 @@ class GatekeeperAccessibilityService : AccessibilityService() {
         Log.i(TAG, "Blocked package's window detected ($pkg); sending device home")
         performGlobalAction(GLOBAL_ACTION_HOME)
         PackageBlocker.killBackgroundProcess(applicationContext, pkg)
-        PackageBlocker.applySuspension(applicationContext)
     }
 
     override fun onInterrupt() {

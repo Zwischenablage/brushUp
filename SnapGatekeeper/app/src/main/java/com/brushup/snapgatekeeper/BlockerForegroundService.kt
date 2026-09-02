@@ -15,14 +15,17 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 
 /**
- * Persistent foreground "gateway" service. It doesn't do the actual
- * blocking by itself (that's [PackageBlocker] and the accessibility
- * service) - its job is to:
- *  - keep re-asserting Device Owner suspension in case anything clears it
- *  - poll [UsageStatsManager] for the current foreground app as a second,
+ * Persistent foreground "gateway" service. It's a redundancy layer, not
+ * the primary blocker - that's [GatekeeperAccessibilityService], which is
+ * the only component that can evict the target app while it's actually in
+ * the foreground. This service:
+ *  - polls [UsageStatsManager] for the current foreground app as a second,
  *    independent detection path in case the accessibility service is ever
- *    disabled by the user
- *  - show a visible notification so it's obvious the gatekeeper is running
+ *    disabled by the user, and kills the target if it catches it starting
+ *    in the background (killBackgroundProcesses is a no-op once something
+ *    is actually in the foreground)
+ *  - shows a visible notification so it's obvious the gatekeeper is running
+ *  - nothing here needs Device Owner or any privileged permission
  */
 class BlockerForegroundService : Service() {
 
@@ -44,7 +47,6 @@ class BlockerForegroundService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         startForeground(NOTIFICATION_ID, buildNotification())
         GatekeeperConfig.setServiceEnabled(this, true)
-        PackageBlocker.applySuspension(this)
         handler.removeCallbacks(pollTask)
         handler.post(pollTask)
         return START_STICKY
@@ -60,9 +62,6 @@ class BlockerForegroundService : Service() {
 
     private fun poll() {
         val target = GatekeeperConfig.targetPackage(this)
-
-        // Re-assert suspension periodically; cheap and idempotent.
-        PackageBlocker.applySuspension(this)
 
         val foreground = currentForegroundPackage()
         if (foreground != null && foreground != lastSeenForeground) {

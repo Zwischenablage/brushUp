@@ -28,23 +28,9 @@
             </intent-filter>
         </activity>
 
-        <!-- Device Owner admin receiver. Requires:
-             adb shell dpm set-device-owner com.brushup.snapgatekeeper/.GatekeeperDeviceAdminReceiver -->
-        <receiver
-            android:name=".GatekeeperDeviceAdminReceiver"
-            android:exported="true"
-            android:permission="android.permission.BIND_DEVICE_ADMIN">
-            <meta-data
-                android:name="android.app.device_admin"
-                android:resource="@xml/device_admin_receiver" />
-            <intent-filter>
-                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
-            </intent-filter>
-        </receiver>
-
-        <!-- Accessibility fallback: catches Snapchat's window the instant it opens
-             and bounces the user home before the UI is usable. Works even without
-             Device Owner, but must be enabled by hand in Settings > Accessibility,
+        <!-- Primary blocker: catches the target app's window the instant it opens
+             and bounces the device home before the UI is usable. No Device Owner,
+             no special privileges - must be enabled once via Settings > Accessibility,
              or via adb (see README). -->
         <service
             android:name=".GatekeeperAccessibilityService"
@@ -59,7 +45,7 @@
         </service>
 
         <!-- Foreground "gateway" service: polls UsageStatsManager as a second,
-             independent detection path and re-applies package suspension. -->
+             independent detection path and shows a visible "is running" notification. -->
         <service
             android:name=".BlockerForegroundService"
             android:exported="false"
@@ -77,8 +63,8 @@
             </intent-filter>
         </receiver>
 
-        <!-- Re-suspends the target package the instant it is (re)installed,
-             so uninstall/reinstall cycles can't sneak past the block. -->
+        <!-- Reacts to the target package being (re)installed, so uninstall/
+             reinstall cycles can't sneak a launch past the block. -->
         <receiver
             android:name=".PackageInstallReceiver"
             android:exported="true">
