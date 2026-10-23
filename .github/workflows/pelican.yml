@@ -1,0 +1,32 @@
+name: Pelican (macOS)
+
+on:
+  push:
+    paths:
+      - "Pelican/**"
+      - ".github/workflows/pelican.yml"
+  pull_request:
+    paths:
+      - "Pelican/**"
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: macos-14 # Apple Silicon runner
+    defaults:
+      run:
+        working-directory: Pelican
+    steps:
+      - uses: actions/checkout@v4
+      - name: Toolchain
+        run: swift --version
+      - name: Test
+        run: swift test
+      - name: Build app bundle
+        run: ./scripts/build-app.sh
+      - name: Zip
+        run: ditto -c -k --keepParent build/Pelican.app build/Pelican.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Pelican-arm64
+          path: Pelican/build/Pelican.zip
