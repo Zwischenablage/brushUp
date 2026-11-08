@@ -1,0 +1,139 @@
+{
+ "_info": "Zeiten in Sekunden ab Liedanfang. Zonen wechseln alle 4 Takte (117,4 BPM). Zum Anpassen einfach start/end ändern.",
+ "bpm": 117.4,
+ "beatOffset": 0.128,
+ "segments": [
+  {
+   "start": 0.0,
+   "end": 7.79,
+   "type": "intro",
+   "title": "Zahnpasta drauf!",
+   "sub": "Mach dich bereit, Toni!",
+   "hint": "Nur so viel wie eine kleine Erbse."
+  },
+  {
+   "start": 7.79,
+   "end": 15.97,
+   "type": "zone",
+   "zone": "KAU_OL",
+   "title": "Kauflächen",
+   "sub": "oben links",
+   "hint": "Hin und her schrubben – wie eine kleine Lok!"
+  },
+  {
+   "start": 15.97,
+   "end": 24.14,
+   "type": "zone",
+   "zone": "KAU_OR",
+   "title": "Kauflächen",
+   "sub": "oben rechts",
+   "hint": "Schrubb, schrubb! Auch ganz hinten!"
+  },
+  {
+   "start": 24.14,
+   "end": 32.32,
+   "type": "zone",
+   "zone": "KAU_UR",
+   "title": "Kauflächen",
+   "sub": "unten rechts",
+   "hint": "Hin und her – die Monster wackeln schon!"
+  },
+  {
+   "start": 32.32,
+   "end": 40.5,
+   "type": "zone",
+   "zone": "KAU_UL",
+   "title": "Kauflächen",
+   "sub": "unten links",
+   "hint": "Weiter so, Toni – gleich sind alle Kauflächen sauber!"
+  },
+  {
+   "start": 40.5,
+   "end": 48.68,
+   "type": "zone",
+   "zone": "AUSSEN_L",
+   "title": "Außen",
+   "sub": "links",
+   "hint": "Zähne zusammenbeißen und kleine Kreise malen!"
+  },
+  {
+   "start": 48.68,
+   "end": 56.85,
+   "type": "zone",
+   "zone": "AUSSEN_V",
+   "title": "Außen",
+   "sub": "vorne",
+   "hint": "Breit grinsen! Kreise auf den Vorderzähnen."
+  },
+  {
+   "start": 56.85,
+   "end": 65.03,
+   "type": "zone",
+   "zone": "AUSSEN_R",
+   "title": "Außen",
+   "sub": "rechts",
+   "hint": "Kreise, Kreise, Kreise – bis ganz nach hinten!"
+  },
+  {
+   "start": 65.03,
+   "end": 73.21,
+   "type": "zone",
+   "zone": "INNEN_OR",
+   "title": "Innen",
+   "sub": "oben rechts",
+   "hint": "Mund weit auf! Vom Zahnfleisch weg wischen."
+  },
+  {
+   "start": 73.21,
+   "end": 81.38,
+   "type": "zone",
+   "zone": "INNEN_OL",
+   "title": "Innen",
+   "sub": "oben links",
+   "hint": "Von Rot nach Weiß – wisch die Monster weg!"
+  },
+  {
+   "start": 81.38,
+   "end": 89.56,
+   "type": "zone",
+   "zone": "INNEN_UL",
+   "title": "Innen",
+   "sub": "unten links",
+   "hint": "Mund schön offen lassen und innen wischen!"
+  },
+  {
+   "start": 89.56,
+   "end": 97.74,
+   "type": "zone",
+   "zone": "INNEN_UR",
+   "title": "Innen",
+   "sub": "unten rechts",
+   "hint": "Fast geschafft! Jetzt innen unten rechts."
+  },
+  {
+   "start": 97.74,
+   "end": 105.92,
+   "type": "zone",
+   "zone": "INNEN_V",
+   "title": "Innen",
+   "sub": "vorne",
+   "hint": "Bürste hochkant stellen – oben und unten!"
+  },
+  {
+   "start": 105.92,
+   "end": 114.09,
+   "type": "finale",
+   "title": "Finale!",
+   "sub": "Zunge putzen",
+   "hint": "Ganz sanft von hinten nach vorne. Dann noch einmal überall!"
+  },
+  {
+   "start": 114.09,
+   "end": 999.0,
+   "type": "outro",
+   "title": "Ausspucken!",
+   "sub": "Und dann: breit lächeln!",
+   "hint": "Du bist ein echter Zahnputz-Held!"
+  }
+ ]
+}

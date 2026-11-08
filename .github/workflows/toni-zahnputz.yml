@@ -1,0 +1,31 @@
+name: Toni Zahnputz APK
+
+on:
+  push:
+    paths: ["ToniZahnputz/**", ".github/workflows/toni-zahnputz.yml"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ToniZahnputz
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Tests + screenshots
+        run: ./gradlew testDebugUnitTest --console=plain
+      - name: Build APK
+        run: ./gradlew assembleRelease --console=plain
+      - uses: actions/upload-artifact@v4
+        with:
+          name: toni-zahnputz-apk
+          path: ToniZahnputz/app/build/outputs/apk/release/*.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: ToniZahnputz/app/build/screenshots/*.png

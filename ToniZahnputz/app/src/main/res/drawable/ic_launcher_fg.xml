@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Smiling tooth, drawn inside the 66dp safe zone of a 108dp adaptive icon. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M54,30 C47,26 34,25 32,38 C30,48 35,56 37,66 C39,76 41,82 45,82 C49,82 49,70 54,70 C59,70 59,82 63,82 C67,82 69,76 71,66 C73,56 78,48 76,38 C74,25 61,26 54,30 Z" />
+    <path android:fillColor="#1A1446" android:pathData="M45,45 m-3.5,0 a3.5,3.5 0,1 0,7 0 a3.5,3.5 0,1 0,-7 0" />
+    <path android:fillColor="#1A1446" android:pathData="M63,45 m-3.5,0 a3.5,3.5 0,1 0,7 0 a3.5,3.5 0,1 0,-7 0" />
+    <path android:strokeColor="#1A1446" android:strokeWidth="3" android:strokeLineCap="round"
+        android:fillColor="#00000000" android:pathData="M45,55 Q54,63 63,55" />
+    <path android:fillColor="#FFB300"
+        android:pathData="M78,26 L80,32 L86,34 L80,36 L78,42 L76,36 L70,34 L76,32 Z" />
+</vector>
